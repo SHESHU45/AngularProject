@@ -1,0 +1,88 @@
+
+<div style="text-align:right"> 
+  <button type="button" class="btn btn-success" (click)="openModal(template)">   Add   </button>
+</div>
+<br>
+<table class="table" >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Detail</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Discount</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pro of products;index as i">
+        <th scope="row">{{ i+1 }}</th>
+        <td>{{ pro.name }}</td>
+        <td>{{ pro.detail }}</td>
+        <td>{{ pro.price }}</td>
+        <td>{{ pro.stock }}</td>
+        <td>{{ pro.discount }}</td>
+        <td><button type="button" class="btn btn-primary" (click)="openModal(template,products[i])" >Edit</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="deleteProduct(pro.id)">Delete</button></td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{modalTitle}}</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <input type="hidden" class="form-control" id="id"  [formControl]="id"> 
+      <div class="mb-3 row">
+        <label for="name" class="col-sm-2 col-form-label">Product </label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name"  [formControl]="name" > 
+          <small *ngIf="name.errors?.['required'] && showError"><b> *Name is required.</b></small>
+        </div>
+        
+      </div>
+      <div class="mb-3 row">
+        <label for="price" class="col-sm-2 col-form-label">Price </label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="price"  [formControl]="price" >
+          <small *ngIf="price.errors?.['required'] && showError"><b> *Price is required.</b></small>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="detail" class="col-sm-2 col-form-label">Details </label>
+        <div class="col-sm-10">          
+          <textarea class="form-control" id="detail" [formControl]="detail" ></textarea>
+          <small *ngIf="detail.errors?.['required'] && showError"><b> *Deatils is required.</b></small>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="stock" class="col-sm-2 col-form-label">Stock </label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="stock"  [formControl]="stock" >
+          <small *ngIf="stock.errors?.['required'] && showError"><b> *Stock is required.</b></small>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="discount" class="col-sm-2 col-form-label">Discount </label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="discount"  [formControl]="discount" >
+          <small *ngIf="discount.errors?.['required'] && showError"><b> *Discount is required.</b></small>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="price" class="col-sm-2 col-form-label"> </label>
+        <div class="col-sm-10">
+          <button type="button" class="btn btn-success" (click)="save()">{{btnText}} </button>
+        </div>
+      </div>
+     
+    </div>
+  </ng-template>
